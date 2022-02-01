@@ -229,7 +229,7 @@ Distributed under the MIT License. See `LICENSE` file for more information.
 <!-- CONTACT -->
 ## Contact
 
-Cleber Araujo - [@CMAraujo87](https://twitter.com/CMAraujo87)
+Cleber Araujo - [@CM_Araujo87](https://twitter.com/CM_Araujo87)
 
 Project Link: [https://github.com/CMAraujo87/keyboard-emulator-windows](https://github.com/CMAraujo87/keyboard-emulator-windows)
 
