@@ -180,7 +180,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add a basic User Interface
+- [x] Add a basic User Interface
 - [ ] Create the key emulator for simple text
 - [ ] Enhance the key emulator for special keys
 - [ ] Add screen for handling complex texts
