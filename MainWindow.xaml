@@ -4,9 +4,126 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:keyboard_emulator_windows"
+        xmlns:vm="clr-namespace:keyboard_emulator_windows.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Keyboard Emulator Windows" Height="300" Width="1200">
+	<FrameworkElement.DataContext>
+		<vm:ViewModel/>
+	</FrameworkElement.DataContext>
+	<Window.TaskbarItemInfo>
+		<TaskbarItemInfo ProgressValue="100"
+               			ProgressState="{Binding ProgressState}" />
+	</Window.TaskbarItemInfo>
     <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0"
+          			Orientation="Horizontal">
+			<Button Margin="2.5" Padding="5,2"
+      				Content="Reset Texts"
+      				Command="{Binding ResetTextsCommand}" />
+			<Button Margin="2.5" Padding="5,2"
+      				Content="Load Texts"
+      				Command="{Binding LoadTextsCommand}" />
+			<Button Margin="2.5" Padding="5,2"
+      				Content="Save Texts"
+      				Command="{Binding SaveTextsCommand}" />
+			<Button Margin="2.5" Padding="5,2"
+      				Content="Cancel"
+      				Command="{Binding CancelCommand}" />
+			<StackPanel Margin="2">
+				<StackPanel Orientation="Horizontal">
+					<TextBox Width="95"
+       						Margin="5,1"
+       						Text="{Binding DefaultDelayBeforeStart}" />
+					<TextBox Width="95"
+       						Margin="5,1"
+       						Text="{Binding DefaultIntervalBetweenKeystrokes}" />
+				</StackPanel>
+			</StackPanel>
+		</StackPanel>
+		<DataGrid Margin="5"
+        			Grid.Row="1"
+        			CanUserAddRows="True"
+        			AutoGenerateColumns="False"
+        			RowHeaderWidth="20"
+        			ItemsSource="{Binding TextsToType}">
+			<FrameworkElement.Resources>
+				<ResourceDictionary>
+					<ContextMenu x:Key="RowMenu">
+						<MenuItem Header="Resetar contadores"
+        							Command="{Binding ResetCountersCommand}" />
+					</ContextMenu>
+				</ResourceDictionary>
+			</FrameworkElement.Resources>
+			<!-- <DataGrid.RowHeaderStyle>
+				<Style TargetType="{x:Type DataGridRowHeader}">
+					<Setter Property="Background"
+      						Value="{Binding Status, Converter={StaticResource IPStatusToDarkBackgroundBrushValueConverter}}" />
+					<Setter Property="Foreground"
+      						Value="{Binding Status, Converter={StaticResource IPStatusToDarkForegroundBrushValueConverter}}" />
+					<Setter Property="BorderThickness"
+      						Value="4" />
+				</Style>
+			</DataGrid.RowHeaderStyle> -->
+			<!-- <DataGrid.RowStyle>
+				<Style TargetType="{x:Type DataGridRow}">
+					<Setter Property="FrameworkElement.ContextMenu"
+      						Value="{StaticResource RowMenu}" />
+					<Setter Property="Background"
+      						Value="{Binding Status, Converter={StaticResource IPStatusToLightBackgroundBrushValueConverter}}" />
+					<Setter Property="Foreground"
+      						Value="{Binding Status, Converter={StaticResource IPStatusToLightForegroundBrushValueConverter}}" />
+				</Style>
+			</DataGrid.RowStyle> -->
+			<DataGrid.Columns>
 
+				<DataGridTextColumn Header="TextContent"
+                  					IsReadOnly="False"
+                  					Width="1*"
+                  					Binding="{Binding TextContent}" />
+				<DataGridTextColumn Header="Delay"
+                  					IsReadOnly="False"
+                  					Width="Auto"
+                  					Binding="{Binding DelayBeforeStart}" />
+				<DataGridTextColumn Header="Interval"
+                  					IsReadOnly="False"
+                  					Width="Auto"
+                  					Binding="{Binding IntervalBetweenKeystrokes}" />
+
+				<DataGridTemplateColumn Header="Edit"
+                      					IsReadOnly="True"
+                      					Width="Auto">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Command="{Binding EditContentCommand}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="Send Keys"
+                      					IsReadOnly="True"
+                      					Width="Auto">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Command="{Binding SendKeysCommand}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+				<DataGridTemplateColumn Header="(Un)lock"
+                      					IsReadOnly="True"
+                      					Width="Auto">
+					<DataGridTemplateColumn.CellTemplate>
+						<DataTemplate>
+							<Button Command="{Binding ToggleLockCommand}" />
+						</DataTemplate>
+					</DataGridTemplateColumn.CellTemplate>
+				</DataGridTemplateColumn>
+
+			</DataGrid.Columns>
+		</DataGrid>
     </Grid>
 </Window>
